@@ -18,6 +18,10 @@
             <field name="amount_python_compute">result = contract.l10n_kw_transportation_allowance</field>
             <field name="struct_id" ref="l10n_kw_hr_payroll.kuwait_employee_payroll_structure"/>
         </record-->
+        <record id="Other" model="hr.salary.rule.category">
+            <field name="name">Other</field>
+            <field name="code">Other</field>
+        </record>
         <record id="kuwait_basic_salary_rule" model="hr.salary.rule">
             <field name="name">BASIC</field>
             <field name="category_id" ref="hr_payroll.BASIC"/>
@@ -34,7 +38,7 @@ result = contract.wage - (unpaid_hours * hour_rate )
         </record>
         <record id="kuwait_accrude_annual_leaves_salary_rule" model="hr.salary.rule">
             <field name="name">Accrude Annual Leaves</field>
-            <field name="category_id" ref="hr_payroll.Other"/>
+            <field name="category_id" ref="l10n_kw_hr_payroll.Other"/>
             <field name="code">AAL</field>
             <field name="sequence">5</field>
             <field name="amount_select">code</field>
@@ -50,7 +54,7 @@ result = day_rate  * difference
         </record>
         <record id="kuwait_end_of_service_salary_rule" model="hr.salary.rule">
             <field name="name">End Of Service</field>
-            <field name="category_id" ref="hr_payroll.Other"/>
+            <field name="category_id" ref="l10n_kw_hr_payroll.Other"/>
             <field name="code">EOS</field>
             <field name="sequence">80</field>
             <!--field name="condition_select">python</field>
