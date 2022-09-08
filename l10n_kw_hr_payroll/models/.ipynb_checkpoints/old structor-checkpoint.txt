@@ -1,0 +1,40 @@
+class HrPayrollStructure(models.Model):
+    _inherit = 'hr.payroll.structure'
+
+    #this is for rounding the NET purposes
+    @api.model
+    def _get_default_rule_ids(self):
+        _super = super()._get_default_rule_ids()
+        _super[7] = (0, 0, {
+            'name': _('Net Salary'),
+            'sequence': 200,
+            'code': 'NET',
+            'category_id': self.env.ref('hr_payroll.NET').id,
+            'condition_select': 'none',
+            'amount_select': 'code',
+            'amount_python_compute': """result = categories.BASIC + categories.ALW + categories.DED
+result=payslip.dict.company_id.currency_id.round(result)""",
+            })
+        return _super
+    rule_ids = fields.One2many(
+        'hr.salary.rule', 'struct_id',
+        string='Salary Rules', default=_get_default_rule_ids)
+        
+        
+        
+class HRPayslip(models.Model):
+    _inherit = 'hr.payslip'
+    
+    #Kuwait Basic salary calculation
+    def _get_paid_amount(self):
+        _super = super()._get_paid_amount()
+        if self.contract_id.country_code == "KW":
+            day_rate = float( self.contract_id.wage /self.contract_id.basic_number_of_days)
+            hour_rate = float(day_rate / 8)
+            try:
+                unpaid_hours = sum([line.number_of_hours for line in self.worked_days_line_ids if line.work_entry_type_id and line.work_entry_type_id.id in self.struct_id.unpaid_work_entry_type_ids.ids])
+                return self.contract_id.wage - (unpaid_hours * hour_rate )
+            except:
+                return self.contract_id.wage
+        else:
+            return _super

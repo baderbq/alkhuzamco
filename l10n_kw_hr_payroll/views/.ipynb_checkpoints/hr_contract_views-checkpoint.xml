@@ -5,22 +5,23 @@
             <field name="model">hr.contract</field>
             <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
             <field name="arch" type="xml">
-                <group name="salary" position="inside" >
-                    <label for="over_time_coef" attrs="{'invisible': [('country_code', '!=', 'kw')]}"/>
-                    <div class="o_row"  attrs="{'invisible': [('country_code', '!=', 'kw')]}">
+                <!--group name="salary" position="inside" >
+                    <label for="over_time_coef" attrs="{'invisible': [('country_code', '!=', 'KW')]}"/>
+                    <div class="o_row"  attrs="{'invisible': [('country_code', '!=', 'KW')]}">
                         <field name="over_time_coef" nolabel="1"/>
                         <span>/ Hour</span>
                     </div>
                    
-                    <label for="fils_rounding_payslip" attrs="{'invisible': [('country_code', '!=', 'kw')]}"/>
-                    <div class="o_row"  attrs="{'invisible': [('country_code', '!=', 'kw')]}">
-                        <field name="fils_rounding_payslip" nolabel="1"/>
-                        <!--span>/ month</span-->
-                    </div>
-                </group>
+                   
+                </group-->
                 <group name="salary_info" position="after">
-                    <group name="end_of_service" string="End Of Service" attrs="{'invisible': [('country_code', '!=', 'kw')]}">
+                    <group name="end_of_service" string="End Of Service" attrs="{'invisible': [('country_code', '!=', 'KW')]}">
+                        <field name="basic_number_of_days"/>
+                        <field name="housing_allowance"/>
+                        <field name="transportation_allowance"/>
+                        <field name="other_allowances"/>
                         <field name="departure_reason_id"/>
+                        
                     </group>
                 </group>
             </field>

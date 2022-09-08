@@ -1,52 +1,60 @@
 <odoo>
     <data noupdate="1">
-        <!--record id="kuwait_housing_allowance_salary_rule" model="hr.salary.rule">
+        <record id="kuwait_housing_allowance_salary_rule" model="hr.salary.rule">
             <field name="name">Housing Allowance</field>
             <field name="category_id" ref="hr_payroll.ALW"/>
-            <field name="code">HOUALLOW</field>
-            <field name="sequence">5</field>
+            <field name="code">HOUSALLOW</field>
+            <field name="sequence">4</field>
+            <field name="condition_python">result = contract.housing_allowance>0</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = contract.l10n_kw_housing_allowance</field>
+            <field name="amount_python_compute">result = contract.housing_allowance</field>
             <field name="struct_id" ref="l10n_kw_hr_payroll.kuwait_employee_payroll_structure"/>
         </record>
         <record id="kuwait_transportation_allowance_salary_rule" model="hr.salary.rule">
             <field name="name">Transportation Allowance</field>
             <field name="category_id" ref="hr_payroll.ALW"/>
-            <field name="code">TRAALLOW</field>
-            <field name="sequence">5</field>
+            <field name="code">TRASALLOW</field>
+            <field name="sequence">4</field>
+            <field name="condition_python">result = contract.transportation_allowance>0</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = contract.l10n_kw_transportation_allowance</field>
+            <field name="amount_python_compute">result = contract.transportation_allowance</field>
             <field name="struct_id" ref="l10n_kw_hr_payroll.kuwait_employee_payroll_structure"/>
-        </record-->
-        <record id="Other" model="hr.salary.rule.category">
-            <field name="name">Other</field>
-            <field name="code">Other</field>
         </record>
-        <record id="kuwait_basic_salary_rule" model="hr.salary.rule">
-            <field name="name">BASIC</field>
-            <field name="category_id" ref="hr_payroll.BASIC"/>
-            <field name="code">BASIC</field>
+        <record id="kuwait_other_allowances_salary_rule" model="hr.salary.rule">
+            <field name="name">Other Allowances</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">OTHALLOW</field>
+            <field name="sequence">4</field>
+            <field name="condition_python">result = contract.other_allowances>0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.other_allowances</field>
+            <field name="struct_id" ref="l10n_kw_hr_payroll.kuwait_employee_payroll_structure"/>
+        </record>
+
+        <record id="kuwait_overtime" model="hr.salary.rule">
+            <field name="name">Overtime</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">OT</field>
             <field name="sequence">5</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = worked_days.OT and worked_days.OT.number_of_hours and contract.resource_calendar_id.hours_per_day
+            </field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-day_rate = float( contract.wage /26 )
-hour_rate = float(day_rate / 8)
-unpaid_hours = sum([line.number_of_hours for line in payslip.worked_days_line_ids if line.work_entry_type_id.id in payslip.struct_id.unpaid_work_entry_type_ids.ids ])
-result = contract.wage - (unpaid_hours * hour_rate )
+result = 1.5 * worked_days.OT.number_of_hours * (contract.wage )/((payslip.date_to - payslip.date_from).days+1)/contract.resource_calendar_id.hours_per_day
             </field>
             <field name="struct_id" ref="l10n_kw_hr_payroll.kuwait_employee_payroll_structure"/>
         </record>
         <record id="kuwait_accrude_annual_leaves_salary_rule" model="hr.salary.rule">
             <field name="name">Accrude Annual Leaves</field>
-            <field name="category_id" ref="l10n_kw_hr_payroll.Other"/>
+            <field name="category_id" ref="l10n_kw_hr_payroll.COMP"/>
             <field name="code">AAL</field>
             <field name="sequence">5</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-start_date = contract.first_contract_date
+start_date = contract.date_start
 end_date = contract.date_end
-day_rate = float( contract.wage /26 )
-hour_rate = float(day_rate / 8)
+day_rate = float( contract.wage /contract.basic_number_of_days)
 difference = ((end_date-start_date).days/365)*30
 result = day_rate  * difference
             </field>
@@ -54,36 +62,45 @@ result = day_rate  * difference
         </record>
         <record id="kuwait_end_of_service_salary_rule" model="hr.salary.rule">
             <field name="name">End Of Service</field>
-            <field name="category_id" ref="l10n_kw_hr_payroll.Other"/>
+            <field name="category_id" ref="hr_payroll.ALW"/>
             <field name="code">EOS</field>
             <field name="sequence">80</field>
-            <!--field name="condition_select">python</field>
-            <field name="condition_python">result = not employee.active and employee.departure_reason_id</field-->
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = not employee.active and employee.departure_reason_id</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
 start_date = contract.first_contract_date
 end_date = contract.date_end
-day_rate = float( contract.wage /26 )
+compensation = contract.wage + contract.housing_allowance + contract.transportation_allowance + contract.other_allowances
+day_rate = float( compensation /contract.basic_number_of_days)
 worked_days = (end_date-start_date).days
-worked_rate = float(worked_days /365)
+worked_years = float(worked_days /365)
+eos_limit = compensation * 18
 eos=0
-#before 3 years if retired to_add condition if he's retired eos=0 
-if worked_rate &lt;=5 :
-    eos = worked_rate  * 15 * day_rate
+#before 5 years computation
+if worked_years &lt;=5 :
+    eos = worked_years * 15 * day_rate
 
-#after 3 years 
-#add in case he retired he get 7.5 days else 15 days foreach year
+# After 5 years computing
+if worked_years >5:
+    ra = worked_years -5
+    eos= (75 * day_rate )+ (compensation*ra)
 
-# After 5 years
-if worked_rate >5:
-    ra = worked_rate -5
-    eos= (75 * day_rate )+ (contract.wage*ra)
-result = eos
-                
+#EOS departure computing cases ( 3/12= 0.25  => 3 month test of contract )
+if 0.25 &lt; worked_years &lt; 3:
+    result= 0 if employee.departure_reason_id != contract.env.ref('hr.departure_fired') else eos
+elif 3 &lt;= worked_years &lt;= 5:
+    result= eos* 1 / 2 if employee.departure_reason_id != contract.env.ref('hr.departure_fired') else eos
+elif  5 &lt;= worked_years &lt; 10:
+    result= eos* 2 / 3 if employee.departure_reason_id != contract.env.ref('hr.departure_fired') else eos
+else:
+    #case if he worked more than 10 years, he has full end of service with limit of 18 months
+    result= eos if eos &lt; eos_limit else eos_limit
+result = payslip.dict.company_id.currency_id.round(result)
 </field>
             <field name="struct_id" ref="l10n_kw_hr_payroll.kuwait_employee_payroll_structure"/>
         </record>
-        <!--record id="kuwait_end_of_service_provision_salary_rule" model="hr.salary.rule">
+        <record id="kuwait_end_of_service_provision_salary_rule" model="hr.salary.rule">
             <field name="name">End of Service Provision</field>
             <field name="category_id" ref="hr_payroll.COMP"/>
             <field name="code">EOSP</field>
@@ -92,8 +109,8 @@ result = eos
             <field name="condition_select">python</field>
             <field name="condition_python">result = employee.active</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = (contract.l10n_kw_number_of_days / 12) * (contract.wage / 30)</field>
+            <field name="amount_python_compute">result = (30 / 365) * (contract.wage + contract.housing_allowance + contract.transportation_allowance + contract.other_allowances)</field>
             <field name="struct_id" ref="l10n_kw_hr_payroll.kuwait_employee_payroll_structure"/>
-        </record-->
+        </record>
     </data>
 </odoo>
