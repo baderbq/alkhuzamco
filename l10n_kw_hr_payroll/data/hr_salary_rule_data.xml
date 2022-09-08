@@ -46,7 +46,7 @@ result = 1.5 * worked_days.OT.number_of_hours * (contract.wage )/((payslip.date_
             <field name="struct_id" ref="l10n_kw_hr_payroll.kuwait_employee_payroll_structure"/>
         </record>
         <record id="kuwait_accrude_annual_leaves_salary_rule" model="hr.salary.rule">
-            <field name="name">Accrude Annual Leaves</field>
+            <field name="name">Annual Leaves</field>
             <field name="category_id" ref="l10n_kw_hr_payroll.COMP"/>
             <field name="code">AAL</field>
             <field name="sequence">5</field>
@@ -56,7 +56,7 @@ start_date = contract.date_start
 end_date = contract.date_end
 day_rate = float( contract.wage /contract.basic_number_of_days)
 difference = ((end_date-start_date).days/365)*30
-result = day_rate  * difference
+result = (day_rate  * difference)/12
             </field>
             <field name="struct_id" ref="l10n_kw_hr_payroll.kuwait_employee_payroll_structure"/>
         </record>
@@ -109,7 +109,26 @@ result = payslip.dict.company_id.currency_id.round(result)
             <field name="condition_select">python</field>
             <field name="condition_python">result = employee.active</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = (30 / 365) * (contract.wage + contract.housing_allowance + contract.transportation_allowance + contract.other_allowances)</field>
+            <field name="amount_python_compute">
+start_date = contract.first_contract_date
+end_date = payslip.date_to
+compensation = contract.wage + contract.housing_allowance + contract.transportation_allowance + contract.other_allowances
+day_rate = float( compensation /contract.basic_number_of_days)
+worked_days = (end_date-start_date).days
+worked_years = float(worked_days /365)
+l10n_kuw_number_of_days = 0
+#before 5 years computation
+if worked_years &lt;=5 :
+    l10n_kuw_number_of_days = 15
+
+# After 5 years computing
+if worked_years >5:
+    l10n_kuw_number_of_days= 30
+
+result = (l10n_kuw_number_of_days / 12) * (contract.wage + contract.housing_allowance + contract.transportation_allowance + contract.other_allowances)/30
+
+
+            </field>
             <field name="struct_id" ref="l10n_kw_hr_payroll.kuwait_employee_payroll_structure"/>
         </record>
     </data>

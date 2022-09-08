@@ -15,3 +15,12 @@ class HRContract(models.Model):
 
 
 
+    @api.onchange('company_id')
+    def _onchange_company_id(self):
+        if self.company_id:
+            structure_types = self.env['hr.payroll.structure.type'].search([
+                ('country_id', '=', self.company_id.country_id.id)])
+            if structure_types:
+                self.structure_type_id = structure_types[0]
+            elif self.structure_type_id not in structure_types:
+                self.structure_type_id = False
