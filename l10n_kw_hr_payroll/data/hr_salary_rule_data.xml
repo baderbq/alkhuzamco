@@ -126,8 +126,6 @@ if worked_years >5:
     l10n_kuw_number_of_days= 30
 
 result = (l10n_kuw_number_of_days / 12) * (contract.wage + contract.housing_allowance + contract.transportation_allowance + contract.other_allowances)/30
-
-
             </field>
             <field name="struct_id" ref="l10n_kw_hr_payroll.kuwait_employee_payroll_structure"/>
         </record>
