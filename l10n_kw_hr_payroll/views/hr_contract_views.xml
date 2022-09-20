@@ -5,15 +5,21 @@
             <field name="model">hr.contract</field>
             <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
             <field name="arch" type="xml">
-                <!--group name="salary" position="inside" >
-                    <label for="over_time_coef" attrs="{'invisible': [('country_code', '!=', 'KW')]}"/>
-                    <div class="o_row"  attrs="{'invisible': [('country_code', '!=', 'KW')]}">
-                        <field name="over_time_coef" nolabel="1"/>
-                        <span>/ Hour</span>
+                <group name="salary" position="inside" >
+                    <label for="anual_leave_salary" attrs="{'invisible': [('country_code', '!=', 'KW')]}"/>
+                    <div class="o_row" style="border: 2px dashed orange;padding:2px;padding-bottom:0px;"  attrs="{'invisible': [('country_code', '!=', 'KW')]}">
+                        <field name="anual_leave_salary" nolabel="1"/>
+                        Based on <field name="anual_leave_days" nolabel="1"/> Worked Days <br/><strong> -&gt; [<field name="leave_taken" nolabel="1"/> Leave taken ]</strong>
+                        
                     </div>
-                   
-                   
-                </group-->
+                    <label for="eos_indiminity" attrs="{'invisible': [('country_code', '!=', 'KW')]}"/>
+                    <div class="o_row"  attrs="{'invisible': [('country_code', '!=', 'KW')]}">
+                        <field name="eos_indiminity" nolabel="1"/>
+                        Based on <field name="eos_indiminity_days" nolabel="1"/> Worked Days
+                 
+                    </div>
+
+                </group>
                 <group name="salary_info" position="after">
                     <group name="end_of_service" string="End Of Service" attrs="{'invisible': [('country_code', '!=', 'KW')]}">
                         <field name="basic_number_of_days"/>

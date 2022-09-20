@@ -13,6 +13,8 @@ Kuwait Payroll and End of Service rules.
         'data/hr_payroll_structure_data.xml',
         'data/hr_salary_rule_data.xml',
         'views/hr_contract_views.xml',
+        'views/hr_employee_public_views.xml',
+        'report/hr_contract_history_report_views.xml'
     ],
     'license': 'OEEL-1',
     'auto_install': False,

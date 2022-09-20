@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_contract_history_view_list_inherit" model="ir.ui.view">
+        <field name="name">hr.contract.history.list.inherit</field>
+        <field name="model">hr.contract.history</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_history_view_list"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside" >
+                <field name="anual_leave_salary" sum="Total Leaves" optional="hide"/>
+                <field name="eos_indiminity" sum="Total EOS"  optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+    
+</odoo>
