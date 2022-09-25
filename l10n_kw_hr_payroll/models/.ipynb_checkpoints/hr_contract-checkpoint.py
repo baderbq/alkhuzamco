@@ -33,12 +33,12 @@ class HRContract(models.Model):
     @api.depends('date_start','date_end')
     def get_an_leave_salary(self):
         for rec in self:
-            start_date = rec.date_start
-            end_date = datetime.now().date() if datetime.now().date()< rec.date_end else rec.date_end
+            start_date = rec.first_contract_date if rec.first_contract_date else rec.date_start or datetime.now().date() 
+            end_date = datetime.now().date() if rec.date_end and datetime.now().date()< rec.date_end else datetime.now().date()
             start = datetime.combine(start_date, datetime.min.time())
-            stop = datetime.combine(end_date, datetime.max.time())
+            stop = datetime.combine(end_date, datetime.max.time()) if end_date else datetime.now()
             day_rate = float( rec.wage /rec.basic_number_of_days)
-            difference = (((end_date-start_date).days)/365)*30
+            difference = (((end_date-start_date).days)/365)*30 
             out_days, out_hours = 0, 0
             if start < stop:
                 out_hours = list(rec._get_work_hours(start, stop, domain=['|', ('work_entry_type_id.code', '=', 'LEAVE105'), ('work_entry_type_id.code', '=', 'LEAVE100')]).items())
@@ -52,8 +52,8 @@ class HRContract(models.Model):
     @api.depends('date_start','date_end')
     def end_of_service(self):
         for rec in self:
-            start_date = rec.first_contract_date
-            end_date = datetime.now().date() if datetime.now().date()< rec.date_end else rec.date_end
+            start_date = rec.first_contract_date if rec.first_contract_date else datetime.now().date()
+            end_date = datetime.now().date() if rec.date_end and datetime.now().date()< rec.date_end else datetime.now().date()
             compensation = rec.wage + rec.housing_allowance + rec.transportation_allowance + rec.other_allowances
             day_rate = float( compensation /rec.basic_number_of_days)
             worked_days = (end_date-start_date).days

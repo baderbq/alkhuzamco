@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- VIEWS -->
+
+       
+
+
+        <record id="eos_leave_line_tree" model="ir.ui.view">
+            <field name="name">eos.leaves.line.tree</field>
+            <field name="model">eos.leaves.line</field>
+            <field name="arch" type="xml">
+                <tree js_class="js_eos_tree" sample="1"  create="false"
+                  edit="false"
+                  delete="false"
+                  duplicate="false"
+                  import="false" >
+                   
+                    <!--field name="payslip_id" invisible="1"/-->
+                    <field name="emp_status" string="Active" widget="boolean_toggle" readonly="1" />
+                   <field name="employee_id" widget="many2one_avatar_employee"/>
+                    <field name="contract_id" optional="show"/>
+                    <field name="job_id" optional="hide"/>
+                    <field name="first_contract_date" />
+                    <field name="end_date" />
+                    <field name="wage" optional="show"/>
+                    <field name="total_allowences" optional="show"/>
+                    <field name="worked_days" optional="show"/>
+                    <field name="leave_taken" optional="show"/>
+                    <field name="deserved_leave_amount" />
+                    <field name="deserved_eos_amount" />
+                    <field name="resigned_eos_amount" optional="show"/>
+                </tree>
+               
+            </field>
+        </record>
+ <record id="eos_leave_line_form" model="ir.ui.view">
+            <field name="name">eos.leaves.line.form</field>
+            <field name="model">eos.leaves.line</field>
+            <field name="arch" type="xml">
+                <form create="0" edit="0">
+                     <group>
+                    <field name="emp_status" widget="boolean_toggle" />
+                   <field name="employee_id" widget="many2one_avatar_employee"/>
+                    <field name="contract_id" optional="show"/>
+                    <field name="job_id" optional="hide"/>
+                    <field name="first_contract_date" />
+                    <field name="end_date" />
+                    <field name="wage" optional="show"/>
+                    <field name="total_allowences" optional="show"/>
+                    <field name="worked_days" optional="show"/>
+                    <field name="leave_taken" optional="show"/>
+                    <field name="deserved_leave_amount" />
+                    <field name="deserved_eos_amount" />
+                    <field name="resigned_eos_amount" optional="show"/>
+                    </group>
+                </form>
+               
+            </field>
+        </record>
+
+      
+
+        <record id="view_eos_leaves_report_form" model="ir.ui.view">
+            <field name="name">eos.leaves.report.form</field>
+            <field name="model">eos.leaves.report</field>
+            <field name="arch" type="xml">
+                <form>
+                <group >
+                    <group string="Pick date">
+                        <field name="end_date"/>
+                    </group>
+                    <group string="Filters">
+                        <field name="only_active"/>
+                        <field name="department_id"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_generate_eos_leave_report" icon="fa-gear" type="object" string="Generate Report" class="btn-primary" data-hotkey="q"/> 
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+                
+                </form>
+                
+            </field>
+        </record>
+
+    <record id="action_eos_leaves_line" model="ir.actions.act_window">
+            <field name="name">End Of Service and Leaves Report</field>
+            <field name="res_model">eos.leaves.line</field>
+            <field name="view_mode">tree,form</field>
+            <!--field name="view_id" ref="eos_leave_line_tree"/-->
+            <!--field name="search_view_id" ref="view_account_move_filter"/-->
+        </record>
+        <record id="action_eos_leaves_report" model="ir.actions.act_window">
+            <field name="name">New End Of Service and Leaves Report</field>
+            <field name="res_model">eos.leaves.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <!--field name="view_id" ref="eos_leave_line_tree"/-->
+            <!--field name="search_view_id" ref="view_account_move_filter"/-->
+        </record>
+    <menuitem id="menu_eos_leaves_report" parent="hr_payroll.menu_hr_payroll_report" name="EOS &amp; Leaves" action="action_eos_leaves_line" sequence="0"/>
+
+    </data>
+</odoo>

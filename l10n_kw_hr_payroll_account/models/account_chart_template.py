@@ -10,8 +10,8 @@ class AccountChartTemplate(models.Model):
         """
         Override to configure payroll accounting data as well as accounting data.
         """
-        ae_companies = self.env['res.company'].search([('partner_id.country_id.code', '=', 'KW')])
-        self.configure_kuw_payroll_account(ae_companies)
+        kw_companies = self.env['res.company'].search([('partner_id.country_id.code', '=', 'KW')])
+        self.configure_kuw_payroll_account(kw_companies)
 
     def configure_kuw_payroll_account(self, companies):
         accounts_codes = [
@@ -32,7 +32,7 @@ class AccountChartTemplate(models.Model):
             '965008',  # End of Service Indemnity
             '965012',  # Staff Other Allowances
         ]
-        uae_structures = self.env['hr.payroll.structure'].search([('country_id.code', '=', "AE")])
+        kuw_structures = self.env['hr.payroll.structure'].search([('country_id.code', '=', "KW")])
         for company in companies:
             self = self.with_company(company)
 
@@ -48,12 +48,12 @@ class AccountChartTemplate(models.Model):
 
             journal = self.env['account.journal'].search([
                 ('code', '=', 'MISC'),
-                ('name', '=', 'Miscellaneous Operations'),
+                ('name', '=', 'Salary'),
                 ('company_id', '=', company.id)])
 
             if not journal:
                 journal = self.env['account.journal'].create({
-                    'name': 'Miscellaneous Operations',
+                    'name': 'Salary',
                     'code': 'MISC',
                     'type': 'general',
                     'company_id': company.id,
@@ -62,7 +62,7 @@ class AccountChartTemplate(models.Model):
             self.env['ir.property']._set_multi(
                 "journal_id",
                 "hr.payroll.structure",
-                {structure.id: journal.id for structure in uae_structures},
+                {structure.id: journal.id for structure in kuw_structures},
             )
 
             # ================================================ #
@@ -90,4 +90,4 @@ class AccountChartTemplate(models.Model):
                 ('struct_id', '=', self.env.ref('l10n_kw_hr_payroll.kuwait_employee_payroll_structure').id),
                 ('code', '=', 'NET')
             ]
-            self.env['hr.salary.rule'].search(salary_rule_domain_net, limit=1).write({'account_credit': accounts['965001'].id})
+            #self.env['hr.salary.rule'].search(salary_rule_domain_net, limit=1).write({'account_credit': accounts['965001'].id})

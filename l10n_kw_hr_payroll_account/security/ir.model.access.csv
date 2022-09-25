@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_eos_leaves_report_manager,hr.eos.leaves.report.manager,model_eos_leaves_report,hr_payroll.group_hr_payroll_manager,1,1,1,1
+access_eos_leaves_line_manager,hr.eos.leaves.line.manager,model_eos_leaves_line,hr_payroll.group_hr_payroll_manager,1,1,1,1

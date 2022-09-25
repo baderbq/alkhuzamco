@@ -52,11 +52,11 @@ result = 1.5 * worked_days.OT.number_of_hours * (contract.wage )/((payslip.date_
             <field name="sequence">5</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-start_date = contract.date_start
-end_date = contract.date_end
+start_date = payslip.date_from
+end_date = payslip.date_to
 day_rate = float( contract.wage /contract.basic_number_of_days)
 difference = ((end_date-start_date).days/365)*30
-result = (day_rate  * difference)/12
+result = day_rate  * difference
             </field>
             <field name="struct_id" ref="l10n_kw_hr_payroll.kuwait_employee_payroll_structure"/>
         </record>
@@ -91,7 +91,7 @@ if 0.25 &lt; worked_years &lt; 3:
     result= 0 if employee.departure_reason_id != contract.env.ref('hr.departure_fired') else eos
 elif 3 &lt;= worked_years &lt;= 5:
     result= eos* 1 / 2 if employee.departure_reason_id != contract.env.ref('hr.departure_fired') else eos
-elif  5 &lt;= worked_years &lt; 10:
+elif  5 &lt; worked_years &lt; 10:
     result= eos* 2 / 3 if employee.departure_reason_id != contract.env.ref('hr.departure_fired') else eos
 else:
     #case if he worked more than 10 years, he has full end of service with limit of 18 months
