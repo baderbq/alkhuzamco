@@ -23,10 +23,13 @@ class AccountMove(models.Model):
 
     def get_payslip(self):
         self.ensure_one()
-        return {
+        action = {
             'type': 'ir.actions.act_window',
             'name': 'Linked Payslip',
             'res_model': 'hr.payslip',
             'view_mode': 'form',
             'res_id': self.payslip_id.id,
         }
+        if not self.payslip_id:
+            action = True
+        return action
