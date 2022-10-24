@@ -23,15 +23,14 @@
                     <field name="contract_id" optional="show"/>
                     <field name="job_id" optional="hide"/>
                     <field name="first_contract_date" />
-                    <field name="contract_end_date" />
                     <field name="end_date" />
-                    <field name="wage" optional="show" sum="Total Salaries"/>
-                    <field name="total_allowences" optional="show" sum="Total Allowances"/>
-                    <field name="worked_days" optional="show" />
+                    <field name="wage" optional="show"/>
+                    <field name="total_allowences" optional="show"/>
+                    <field name="worked_days" optional="show"/>
                     <field name="leave_taken" optional="show"/>
                     <field name="deserved_leave_amount" />
-                    <field name="deserved_eos_amount" sum="Total Deserved End Of Service"/>
-                    <field name="resigned_eos_amount" sum="Total Resigned End Of Service" optional="show"/>
+                    <field name="deserved_eos_amount" />
+                    <field name="resigned_eos_amount" optional="show"/>
                 </tree>
                
             </field>

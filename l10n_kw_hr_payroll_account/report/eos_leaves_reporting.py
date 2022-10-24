@@ -11,24 +11,23 @@ class eos_leaves_report(models.TransientModel):
     emp_status  = fields.Boolean(string="Employee Status",related="employee_id.active")
     contract_id = fields.Many2one('hr.contract',related="employee_id.contract_id")
     job_id = fields.Many2one(related="employee_id.job_id")
-    first_contract_date = fields.Date(string="From Join Date",related="employee_id.first_contract_date",store=True)
+    first_contract_date = fields.Date(string="From Join Date",related="employee_id.first_contract_date")
     eos_report_id = fields.Many2one("eos.leaves.report","Report ID")
     end_date = fields.Date("To this date",related="eos_report_id.end_date")
-    contract_end_date = fields.Date("Contract EndDate",related="contract_id.date_end")
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
     currency_id = fields.Many2one(string="Currency", related='company_id.currency_id', readonly=True)
-    wage = fields.Monetary('Salary', related="contract_id.wage",store=True)
+    wage = fields.Monetary('Wage', related="contract_id.wage")
     
-    total_allowences = fields.Monetary("Total Allowances", compute="get_total_allowances",store=True)
+    total_allowences = fields.Monetary("Total Allowances", compute="get_total_allowances")
     
-    deserved_leave_amount = fields.Monetary("Deserved Leave Salary ", compute="get_leave_amount",store=True,compute_sudo=True)
+    deserved_leave_amount = fields.Monetary("Deserved Leave Salary ", compute="get_leave_amount")
     
-    deserved_eos_amount = fields.Monetary("Deserved EOS", compute="end_of_service",store=True,compute_sudo=True)
-    resigned_eos_amount = fields.Monetary("Resign EOS", compute="end_of_service",compute_sudo=True)
+    deserved_eos_amount = fields.Monetary("Deserved EOS", compute="end_of_service")
+    resigned_eos_amount = fields.Monetary("Resign EOS", compute="end_of_service")
     
     
-    worked_days = fields.Float("Worked days", compute="get_leave_amount",compute_sudo=True)
-    leave_taken = fields.Float(string="taken leaves",compute="get_an_leave_salary",help="The amount of accrued leaves until Date to",compute_sudo=True)
+    worked_days = fields.Float("Worked days", compute="get_leave_amount")
+    leave_taken = fields.Float(string="taken leaves",compute="get_an_leave_salary",help="The amount of accrued leaves until Date to")
     
     @api.depends('contract_id')
     def get_total_allowances(self):
@@ -40,18 +39,17 @@ class eos_leaves_report(models.TransientModel):
         for rec in self:
             contract = rec.contract_id
             start_date = contract.first_contract_date if contract.first_contract_date else contract.date_start or datetime.now().date() 
-            end_date = contract.date_end if contract.date_end and rec.end_date > contract.date_end else rec.end_date
+            end_date = rec.end_date if rec.end_date  else datetime.now().date()
             start = datetime.combine(start_date, datetime.min.time())
             stop = datetime.combine(end_date, datetime.max.time()) if end_date else datetime.now()
             day_rate = float( contract.wage /(contract.basic_number_of_days or 26))
             difference = (((end_date-start_date).days)/365)*30 
             out_days, out_hours = 0, 0
-            if start < stop and contract:
+            if start < stop:
                 out_hours = list(contract._get_work_hours(start, stop, domain=['|', ('work_entry_type_id.code', '=', 'LEAVE105'), ('work_entry_type_id.code', '=', 'LEAVE100')]).items())
                 out_hours = sum(oh[1] for oh in out_hours if oh and len(oh)>0)
                 out_days += round(out_hours/(contract.resource_calendar_id.hours_per_day or 8))
             rec.worked_days = (end_date-start_date).days
-            rec.worked_days = rec.worked_days if rec.worked_days>=0 else 0
             rec.leave_taken = out_days
             rec.deserved_leave_amount = (day_rate  * difference) - (day_rate  * out_days)
             
@@ -96,7 +94,6 @@ class eos_leaves_report(models.TransientModel):
                 resign_eos= eos* 2 / 3
             else:
                 result= eos if eos < eos_limit else eos_limit
-                resign_eos = result
             resign_eos = rec.company_id.currency_id.round(resign_eos)
             rec.deserved_eos_amount = rec.company_id.currency_id.round(eos)
             rec.resigned_eos_amount = resign_eos

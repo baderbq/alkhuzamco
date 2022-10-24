@@ -6,7 +6,6 @@
     'description': """
 Kuwait Payroll and End of Service rules.
 ========================================
-This module is created for odoo payroll in kuwait.
     """,
     'depends': ['hr_payroll'],
     'data': [

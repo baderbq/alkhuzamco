@@ -10,7 +10,7 @@ from odoo.exceptions import UserError
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    approved = fields.Boolean("Approved",tracking=1)
+    approved = fields.Boolean("Approved",tracking=1,default=False,copy=False)
     company_approval = fields.Boolean("Company approvals",related="company_id.so_order_approval")
 
     def action_confirm(self):
