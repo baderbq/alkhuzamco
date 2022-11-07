@@ -1,0 +1,232 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_kw_hr_payroll
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-06 08:22+0000\n"
+"PO-Revision-Date: 2022-11-06 08:22+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_kw_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_kw_hr_payroll.hr_contract_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_kw_hr_payroll.hr_employee_inherit_view_form
+msgid "-&gt; ["
+msgstr ""
+
+#. module: l10n_kw_hr_payroll
+#: model:hr.salary.rule,name:l10n_kw_hr_payroll.kuwait_accrude_annual_leaves_salary_rule
+msgid "Annual Leaves"
+msgstr "الإجازات السنوية"
+
+#. module: l10n_kw_hr_payroll
+#: model:ir.model.fields,field_description:l10n_kw_hr_payroll.field_hr_contract__anual_leave_days
+#: model:ir.model.fields,field_description:l10n_kw_hr_payroll.field_hr_employee__anual_leave_days
+msgid "Annual leave Days"
+msgstr "عدد أيام العمل"
+
+#. module: l10n_kw_hr_payroll
+#: model:ir.model.fields,field_description:l10n_kw_hr_payroll.field_hr_contract__anual_leave_salary
+#: model:ir.model.fields,field_description:l10n_kw_hr_payroll.field_hr_employee__anual_leave_salary
+msgid "Annual leave until today"
+msgstr "الإجازة السنوية المستحقة إلى اليوم"
+
+#. module: l10n_kw_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_kw_hr_payroll.hr_contract_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_kw_hr_payroll.hr_employee_inherit_view_form
+msgid "Based on"
+msgstr "محسوبة على أساس"
+
+#. module: l10n_kw_hr_payroll
+#: model:ir.model,name:l10n_kw_hr_payroll.model_hr_contract_history
+msgid "Contract history"
+msgstr "سِجل العقد "
+
+#. module: l10n_kw_hr_payroll
+#: model:ir.model.fields,field_description:l10n_kw_hr_payroll.field_hr_contract__departure_reason_id
+msgid "Departure Reason"
+msgstr "سبب المغادرة"
+
+#. module: l10n_kw_hr_payroll
+#: model:ir.model.fields,field_description:l10n_kw_hr_payroll.field_hr_contract__eos_indiminity_days
+#: model:ir.model.fields,field_description:l10n_kw_hr_payroll.field_hr_employee__eos_indiminity_days
+msgid "EOS Days"
+msgstr "عدد أيام العمل"
+
+#. module: l10n_kw_hr_payroll
+#: model:ir.model.fields,field_description:l10n_kw_hr_payroll.field_hr_contract_history__eos_indiminity
+msgid "EOS indiminity"
+msgstr "إجازة نهاية الخدمة المستحقة"
+
+#. module: l10n_kw_hr_payroll
+#: model:ir.model.fields,field_description:l10n_kw_hr_payroll.field_hr_contract__eos_indiminity
+#: model:ir.model.fields,field_description:l10n_kw_hr_payroll.field_hr_employee__eos_indiminity
+msgid "EOS indiminity until today"
+msgstr "إجازة نهاية الخدمة المستحقة إلى اليوم"
+
+#. module: l10n_kw_hr_payroll
+#: model:ir.model,name:l10n_kw_hr_payroll.model_hr_employee
+msgid "Employee"
+msgstr "الموظف"
+
+#. module: l10n_kw_hr_payroll
+#: model:ir.model,name:l10n_kw_hr_payroll.model_hr_contract
+msgid "Employee Contract"
+msgstr "عقد الموظف"
+
+#. module: l10n_kw_hr_payroll
+#: model:hr.salary.rule,name:l10n_kw_hr_payroll.kuwait_end_of_service_salary_rule
+#: model_terms:ir.ui.view,arch_db:l10n_kw_hr_payroll.hr_contract_view_form
+msgid "End Of Service"
+msgstr "نهاية الخدمة المستحقة"
+
+#. module: l10n_kw_hr_payroll
+#: model:hr.salary.rule,name:l10n_kw_hr_payroll.kuwait_end_of_service_provision_salary_rule
+msgid "End of Service Provision"
+msgstr "مصروف نهاية الخدمة"
+
+#. module: l10n_kw_hr_payroll
+#: model:hr.salary.rule,name:l10n_kw_hr_payroll.kuwait_housing_allowance_salary_rule
+#: model:ir.model.fields,field_description:l10n_kw_hr_payroll.field_hr_contract__housing_allowance
+msgid "Housing Allowance"
+msgstr "بدل السكن"
+
+#. module: l10n_kw_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_kw_hr_payroll.hr_contract_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_kw_hr_payroll.hr_employee_inherit_view_form
+msgid "Leave taken ]"
+msgstr "الاجازات المأخوذة ]"
+
+#. module: l10n_kw_hr_payroll
+#: model:ir.model.fields,field_description:l10n_kw_hr_payroll.field_hr_contract_history__anual_leave_salary
+msgid "Leaves"
+msgstr "الاجازات"
+
+#. module: l10n_kw_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_kw_hr_payroll.hr_employee_inherit_view_form
+msgid "Leaves and EOS"
+msgstr "الإجازات ونهاية الخدمة"
+
+#. module: l10n_kw_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_kw_hr_payroll.hr_employee_inherit_view_form
+msgid "Leaves and end of service indiminity"
+msgstr "الإجازات ونهاية الخدمة المستحقة"
+
+#. module: l10n_kw_hr_payroll
+#: model:ir.model.fields,field_description:l10n_kw_hr_payroll.field_hr_contract__basic_number_of_days
+msgid "Number of Days"
+msgstr "عدد الأيام"
+
+#. module: l10n_kw_hr_payroll
+#: model:ir.model.fields,help:l10n_kw_hr_payroll.field_hr_contract__basic_number_of_days
+msgid "Number of days of basic salary."
+msgstr "عدد أيام الراتب الأساسي."
+
+#. module: l10n_kw_hr_payroll
+#: model:hr.salary.rule.category,name:l10n_kw_hr_payroll.Other
+msgid "Other"
+msgstr "آخر"
+
+#. module: l10n_kw_hr_payroll
+#: model:hr.salary.rule,name:l10n_kw_hr_payroll.kuwait_other_allowances_salary_rule
+#: model:ir.model.fields,field_description:l10n_kw_hr_payroll.field_hr_contract__other_allowances
+msgid "Other Allowances"
+msgstr "بدلات أخرى"
+
+#. module: l10n_kw_hr_payroll
+#: model:ir.model.fields,field_description:l10n_kw_hr_payroll.field_hr_contract__over_time_coef
+msgid "OverTime Coef"
+msgstr "معامل العمل الإضافي"
+
+#. module: l10n_kw_hr_payroll
+#: model:hr.salary.rule,name:l10n_kw_hr_payroll.kuwait_overtime
+msgid "Overtime"
+msgstr "العمل الاضافي"
+
+#. module: l10n_kw_hr_payroll
+#: model:ir.model,name:l10n_kw_hr_payroll.model_hr_payslip
+msgid "Pay Slip"
+msgstr "إيصال الدفع "
+
+#. module: l10n_kw_hr_payroll
+#: model:ir.model,name:l10n_kw_hr_payroll.model_hr_payslip_worked_days
+msgid "Payslip Worked Days"
+msgstr "إيصال الدفع لأيام العمل "
+
+#. module: l10n_kw_hr_payroll
+#: model:ir.model.fields,help:l10n_kw_hr_payroll.field_hr_contract__eos_indiminity
+#: model:ir.model.fields,help:l10n_kw_hr_payroll.field_hr_contract_history__eos_indiminity
+#: model:ir.model.fields,help:l10n_kw_hr_payroll.field_hr_employee__eos_indiminity
+msgid "The amount of End of service indiminity until today."
+msgstr "مقدار نهاية الخدمة حتى اليوم."
+
+#. module: l10n_kw_hr_payroll
+#: model:ir.model.fields,help:l10n_kw_hr_payroll.field_hr_contract__anual_leave_salary
+#: model:ir.model.fields,help:l10n_kw_hr_payroll.field_hr_contract__leave_taken
+#: model:ir.model.fields,help:l10n_kw_hr_payroll.field_hr_contract_history__anual_leave_salary
+#: model:ir.model.fields,help:l10n_kw_hr_payroll.field_hr_employee__anual_leave_salary
+#: model:ir.model.fields,help:l10n_kw_hr_payroll.field_hr_employee__leave_taken
+msgid "The amount of accrued leaves until today"
+msgstr "كمية الإجازة السنوية المستحقة حتى اليوم"
+
+#. module: l10n_kw_hr_payroll
+#: model:ir.model.fields,help:l10n_kw_hr_payroll.field_hr_contract__anual_leave_days
+#: model:ir.model.fields,help:l10n_kw_hr_payroll.field_hr_employee__anual_leave_days
+msgid "The number of days of accrued leaves until today"
+msgstr "عدد أيام الإجازات السنوية المستحقة حتى اليوم"
+
+#. module: l10n_kw_hr_payroll
+#: model:ir.model.fields,help:l10n_kw_hr_payroll.field_hr_contract__eos_indiminity_days
+#: model:ir.model.fields,help:l10n_kw_hr_payroll.field_hr_employee__eos_indiminity_days
+msgid "The number of worked days today."
+msgstr "عدد أيام العمل حتى اليوم."
+
+#. module: l10n_kw_hr_payroll
+#: model:ir.model.fields,help:l10n_kw_hr_payroll.field_hr_contract__over_time_coef
+msgid ""
+"This field used to get overworking time cost/hour, cost_OVT = OverTime Coef "
+"* hour_cost"
+msgstr ""
+"يستخدم هذا الحقل للحصول على تكلفة وقت العمل الزائد في الساعة ، العمل الإضافي"
+" = معامل العمل الإضافي * تكلفة الساعة\n"
+
+#. module: l10n_kw_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_kw_hr_payroll.hr_contract_history_view_list_inherit
+msgid "Total EOS"
+msgstr "مجموع نهايات الخدمة المستحقة"
+
+#. module: l10n_kw_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_kw_hr_payroll.hr_contract_history_view_list_inherit
+msgid "Total Leaves"
+msgstr "مجموع الإجازات السنوية المستحقة"
+
+#. module: l10n_kw_hr_payroll
+#: model:hr.salary.rule,name:l10n_kw_hr_payroll.kuwait_transportation_allowance_salary_rule
+#: model:ir.model.fields,field_description:l10n_kw_hr_payroll.field_hr_contract__transportation_allowance
+msgid "Transportation Allowance"
+msgstr "بدل مواصلات"
+
+#. module: l10n_kw_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_kw_hr_payroll.hr_contract_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_kw_hr_payroll.hr_employee_inherit_view_form
+msgid "Worked Days"
+msgstr "عدد أيام الحضور"
+
+#. module: l10n_kw_hr_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_kw_hr_payroll.hr_contract_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_kw_hr_payroll.hr_employee_inherit_view_form
+msgid "Worked Days <br/>"
+msgstr "عدد أيام <br/> الحضور"
+
+#. module: l10n_kw_hr_payroll
+#: model:ir.model.fields,field_description:l10n_kw_hr_payroll.field_hr_contract__leave_taken
+#: model:ir.model.fields,field_description:l10n_kw_hr_payroll.field_hr_employee__leave_taken
+msgid "taken leaves"
+msgstr "الاجازات المأخوذة"

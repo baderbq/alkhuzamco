@@ -18,4 +18,5 @@ Kuwait Payroll and End of Service rules.
     ],
     'license': 'OEEL-1',
     'auto_install': False,
+    'application':True,
 }
